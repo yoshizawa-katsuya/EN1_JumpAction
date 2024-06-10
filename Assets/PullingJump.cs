@@ -11,6 +11,7 @@ public class PullingJump : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
     }
     private Vector3 clickPosition;
+    private bool isCanJump;
     [SerializeField]
     private float jumpPower = 10.0f;
 
@@ -21,7 +22,7 @@ public class PullingJump : MonoBehaviour
         {
             clickPosition = Input.mousePosition;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (isCanJump && Input.GetMouseButtonUp(0))
         {
             //クリックした座標と離した座標の差分を取得
             Vector3 dist = clickPosition - Input.mousePosition;
@@ -31,5 +32,22 @@ public class PullingJump : MonoBehaviour
             rb.velocity = dist.normalized * jumpPower;
         }
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("衝突した");
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        //Debug.Log("接触中");
+        isCanJump = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        //Debug.Log("離脱した");
+        isCanJump = false;
     }
 }
