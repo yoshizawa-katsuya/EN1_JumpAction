@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //音楽：魔王魂
 
 public class PullingJump : MonoBehaviour
 {
+    public int itemCount = 0;
+    public Text itemCountText;
+
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -33,7 +37,9 @@ public class PullingJump : MonoBehaviour
             //差分を標準化し、jumpPowerをかけ合わせた値を移動量とする。
             rb.velocity = dist.normalized * jumpPower;
         }
-        
+
+        itemCountText.text = "アイテム数:" + itemCount.ToString();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,4 +72,13 @@ public class PullingJump : MonoBehaviour
         //Debug.Log("離脱した");
         isCanJump = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Item"))
+        {
+            itemCount++;
+        }
+    }
+
 }
