@@ -79,6 +79,23 @@ public class PullingJump : MonoBehaviour
         {
             itemCount++;
         }
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("JumpArea"))
+        {
+            isCanJump = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("JumpArea"))
+        {
+            isCanJump = false;
+        }
     }
 
 }
