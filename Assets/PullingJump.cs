@@ -45,7 +45,7 @@ public class PullingJump : MonoBehaviour
             //差分を標準化し、jumpPowerをかけ合わせた値を移動量とする。
             rb.velocity = dist.normalized * jumpPower;
 
-            transform.localScale = originalScale;
+            
         }
 
         if (isCanJump && Input.GetMouseButton(0))
@@ -71,7 +71,14 @@ public class PullingJump : MonoBehaviour
             transform.localScale = Vector3.Lerp(transform.localScale, adjustedScale, Time.deltaTime * lerpSpeed);
         }
 
-        itemCountText.text = "アイテム数:" + itemCount.ToString();
+        if (Input.GetMouseButtonUp(0))
+        {
+
+            transform.localScale = originalScale;
+
+        }
+
+            itemCountText.text = "アイテム数:" + itemCount.ToString();
 
     }
 
