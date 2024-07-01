@@ -90,6 +90,10 @@ public class PullingJump : MonoBehaviour
         {
             isCanJump = true;
         }
+        if (other.gameObject.CompareTag("FloatArea"))
+        {
+            rb.AddForce(-Physics.gravity * (rb.mass * 2.0f));
+        }
     }
 
     private void OnTriggerExit(Collider other)
