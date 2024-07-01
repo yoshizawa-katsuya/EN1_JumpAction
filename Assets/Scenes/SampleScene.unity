@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1910037688339312333, guid: eb037ac382de08a4189b5eebc0a9e196, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3381501814985938377, guid: eb037ac382de08a4189b5eebc0a9e196, type: 3}
       propertyPath: itemCountText
       value: 
@@ -1383,6 +1387,10 @@ PrefabInstance:
     - target: {fileID: 1763443041825099419, guid: ec340a3a036391345a31c8a4b6123015, type: 3}
       propertyPath: m_TagString
       value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960230519010527964, guid: ec340a3a036391345a31c8a4b6123015, type: 3}
+      propertyPath: newTag
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7324050075017338002, guid: ec340a3a036391345a31c8a4b6123015, type: 3}
       propertyPath: m_Enabled

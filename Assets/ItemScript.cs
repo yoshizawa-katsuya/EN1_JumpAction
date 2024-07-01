@@ -7,6 +7,7 @@ public class ItemScript : MonoBehaviour
 
     private Animator animator;
     private AudioSource audioSource;
+    public string newTag;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +24,12 @@ public class ItemScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log("Enter");
-        //DestroySelf();
-        animator.SetTrigger("Get");
-        audioSource.Play();
+        if (other.gameObject.CompareTag("Player"))
+        {
+            animator.SetTrigger("Get");
+            audioSource.Play();
+            gameObject.tag = newTag;
+        }
     }
 
     private void OnTriggerStay(Collider other)
