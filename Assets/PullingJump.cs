@@ -12,10 +12,17 @@ public class PullingJump : MonoBehaviour
     public string newTag;
 
     private Rigidbody rb;
+
+    public float squashFactor = 0.5f; // 潰れ具合の倍率
+    public float lerpSpeed = 5.0f; // スムーズな変化の速度
+
+    private Vector3 otherNormal;
+    private Vector3 originalScale; // 元のスケール
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        originalScale = transform.localScale;
     }
     private Vector3 clickPosition;
     private bool isCanJump;
@@ -37,6 +44,31 @@ public class PullingJump : MonoBehaviour
             if (dist.sqrMagnitude == 0) { return; }
             //差分を標準化し、jumpPowerをかけ合わせた値を移動量とする。
             rb.velocity = dist.normalized * jumpPower;
+
+            transform.localScale = originalScale;
+        }
+
+        if (isCanJump && Input.GetMouseButton(0))
+        {
+            Vector3 dist = clickPosition - Input.mousePosition;
+            // 法線に基づいてスケールを調整
+            Vector3 localNormal = transform.InverseTransformDirection(dist.normalized);
+            Vector3 adjustedScale = originalScale;
+            if (localNormal.y < 0)
+            {
+                localNormal.y *= -1;
+            }
+            if (localNormal.x < 0)
+            {
+                localNormal.x *= -1;
+            }
+            adjustedScale.y *= Mathf.Clamp01(1 - localNormal.y * squashFactor);
+            adjustedScale.x *= Mathf.Clamp01(1 - localNormal.x * squashFactor);
+
+
+
+            // スムーズにスケールを変更
+            transform.localScale = Vector3.Lerp(transform.localScale, adjustedScale, Time.deltaTime * lerpSpeed);
         }
 
         itemCountText.text = "アイテム数:" + itemCount.ToString();
@@ -54,7 +86,7 @@ public class PullingJump : MonoBehaviour
         //衝突している点の情報が複数格納されている
         ContactPoint[] contacts = collision.contacts;
         //0番目の衝突情報から、衝突している点の法線を取得
-        Vector3 otherNormal = contacts[0].normal;
+        otherNormal = contacts[0].normal;
         //上方向を示すベクトル。長さは1
         Vector3 upVector = new Vector3(0, 1, 0);
         //上方向と法線の内積。二つのベクトルはともに長さが1なので、conθの結果がdotUN変数に入る。
@@ -66,6 +98,9 @@ public class PullingJump : MonoBehaviour
         {
             isCanJump = true;
         }
+
+        
+
     }
 
     private void OnCollisionExit(Collision collision)
