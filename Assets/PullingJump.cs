@@ -9,6 +9,7 @@ public class PullingJump : MonoBehaviour
 {
     public int itemCount = 0;
     public Text itemCountText;
+    public string newTag;
 
     private Rigidbody rb;
     // Start is called before the first frame update
@@ -78,6 +79,7 @@ public class PullingJump : MonoBehaviour
         if (other.gameObject.CompareTag("Item"))
         {
             itemCount++;
+            other.gameObject.tag = newTag;
         }
         
     }

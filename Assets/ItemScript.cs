@@ -7,7 +7,7 @@ public class ItemScript : MonoBehaviour
 
     private Animator animator;
     private AudioSource audioSource;
-    public string newTag;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class ItemScript : MonoBehaviour
         {
             animator.SetTrigger("Get");
             audioSource.Play();
-            gameObject.tag = newTag;
+            
         }
     }
 
